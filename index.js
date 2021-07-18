@@ -51,5 +51,5 @@ app.post('/register', function(req, res) {
 
 app.listen(PORT, () => {
     console.log("CovidCheckin DB is running in port 3000!")
-    console.log(server)
+    console.log(accounts)
 });
