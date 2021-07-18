@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT;
 
-var rawdata = fs.readFileSync('server.json');
-var server = JSON.parse(rawdata);
+var accRawdata = fs.readFileSync('accounts.json');
+var accounts = JSON.parse(accRawdata);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,14 +30,14 @@ app.post('/register', function(req, res) {
     const password = body.password;
     const id = body.id;
     const newUser = {
-        id: id,
-        pw: password,
-        name: name,
-        telnum: telnum,
-        email: email
+        "id": id,
+        "pw": password,
+        "name": name,
+        "telnum": telnum,
+        "email": email
     };
-    server.push(newUser);
-    fs.writeFile('./server.json', JSON.stringify(server), function (err) {
+    accounts.push(newUser);
+    fs.writeFile('./accounts.json', JSON.stringify(server), function (err) {
         if (err) {
             console.log('Error has occurred!');
             console.dir(err);
@@ -46,7 +46,7 @@ app.post('/register', function(req, res) {
         console.log('File wrote.'); 
        }
     );
-    return res.status(201).json(server)
+    return res.status(201).json(accounts)
 });
 
 app.listen(PORT, () => {
