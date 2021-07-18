@@ -1,1 +1,1 @@
-# coviecheckin-db
+# covidcheckin-db
