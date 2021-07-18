@@ -46,6 +46,7 @@ app.post('/register', function(req, res) {
         console.log('File wrote.'); 
        }
     );
+    return res.status(201).json(server)
 });
 
 app.listen(PORT, () => {
