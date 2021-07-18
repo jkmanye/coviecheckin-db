@@ -37,7 +37,7 @@ app.post('/register', function(req, res) {
         "email": email
     };
     accounts.push(newUser);
-    fs.writeFile('./accounts.json', JSON.stringify(server), function (err) {
+    fs.writeFile('./accounts.json', JSON.stringify(accounts), function (err) {
         if (err) {
             console.log('Error has occurred!');
             console.dir(err);
