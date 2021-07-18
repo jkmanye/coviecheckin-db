@@ -13,12 +13,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/', (req, res) => {
     res.send("CovidCheckin Database Working!")
     console.log("A new client packet recieved.")
-    console.log(server)
+    console.log(accounts)
 });
 
 app.get('/status', (req, res) => {
     console.log("A new client packet recieved.")
-    return res.json(server)
+    return res.json(accounts)
 });
 
 app.post('/register', function(req, res) {
