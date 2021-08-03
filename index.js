@@ -25,14 +25,18 @@ app.post('/register', function(req, res) {
     console.log("A new client packet recieved.")
     console.log(req.body);
     const email = req.body.email;
+    console.log(email);
     const password = req.body.password;
+    console.log(password);
     const name = req.body.name;
+    console.log(name);
     const telnum = req.body.telnum;
+    console.log(telnum);
     const newUser = {
-        "email": email,
-        "pw": password,
-        "name": name,
-        "telnum": telnum
+        email: email,
+        pw: password,
+        name: name,
+        telnum: telnum
     };
     console.log(JSON.stringify(newUser));
     accounts.push(newUser);
