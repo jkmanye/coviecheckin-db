@@ -23,19 +23,18 @@ app.get('/status', (req, res) => {
 
 app.post('/register', function(req, res) {
     console.log("A new client packet recieved.")
-    const body = req.body;
-    const name = body.name;
-    const telnum = body.telnum;
-    const email = body.email;
-    const password = body.password;
-    const id = body.id;
+    console.log(req.body);
+    const email = req.body.email;
+    const password = req.body.password;
+    const name = req.body.name;
+    const telnum = req.body.telnum;
     const newUser = {
-        "id": id,
+        "email": email,
         "pw": password,
         "name": name,
-        "telnum": telnum,
-        "email": email
+        "telnum": telnum
     };
+    console.log(JSON.stringify(newUser));
     accounts.push(newUser);
     fs.writeFile('./accounts.json', JSON.stringify(accounts), function (err) {
         if (err) {
