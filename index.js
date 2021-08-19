@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(bodyParser().json())
+app.use(bodyParser.json())
 
 var accRawdata = fs.readFileSync('accounts.json');
 var accounts = JSON.parse(accRawdata);
