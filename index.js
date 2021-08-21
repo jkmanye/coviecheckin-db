@@ -7,8 +7,8 @@ const PORT = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 
-var accRawdata;
-var accounts;
+var accRawdata = fs.readFileSync('accounts.json');
+var accounts = JSON.parse(accRawdata);
 
 function reloadAccount() {
     accRawdata = fs.readFileSync('accounts.json');
