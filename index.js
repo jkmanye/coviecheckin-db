@@ -7,8 +7,13 @@ const PORT = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 
-var accRawdata = fs.readFileSync('accounts.json');
-var accounts = JSON.parse(accRawdata);
+var accRawdata;
+var accounts;
+
+function reloadAccount() {
+    accRawdata = fs.readFileSync('accounts.json');
+    accounts = JSON.parse(accRawdata);
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -16,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/', (req, res) => {
     res.send("CovidCheckin Database Working!")
     console.log("A new client packet recieved.")
+    reloadAccount()
     console.log(accounts)
 });
 
@@ -26,32 +32,33 @@ app.get('/status', (req, res) => {
 
 app.post('/register', function(req, res) {
     console.log("A new client packet recieved.")
-    console.log(req.body);
-    const email = req.body.email;
-    console.log(email);
-    const password = req.body.password;
-    console.log(password);
+    console.log(req.body)
+    const email = req.body.email
+    console.log(email)
+    const password = req.body.password
+    console.log(password)
     const name = req.body.name;
-    console.log(name);
-    const telnum = req.body.telnum;
-    console.log(telnum);
+    console.log(name)
+    const telnum = req.body.telnum
+    console.log(telnum)
     const newUser = {
         email: email,
         pw: password,
         name: name,
         telnum: telnum
-    };
-    console.log(JSON.stringify(newUser));
-    accounts.push(newUser);
+    }
+    console.log(JSON.stringify(newUser))
+    accounts.push(newUser)
     fs.writeFile('./accounts.json', JSON.stringify(accounts), function (err) {
         if (err) {
-            console.log('Error has occurred!');
-            console.dir(err);
-            return;
+            console.log('Error has occurred!')
+            console.dir(err)
+            return
         }
-        console.log('File wrote.'); 
+        console.log('File wrote.')
+        reloadAccount()
        }
-    );
+    )
     return res.status(201).json(accounts)
 });
 
