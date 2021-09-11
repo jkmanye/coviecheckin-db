@@ -1,11 +1,8 @@
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.json());
 
 var accRawdata = fs.readFileSync('accounts.json');
 var accounts = JSON.parse(accRawdata);
@@ -23,6 +20,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/status', (req, res) => {
+    console.log("A new client packet recieved.")
+    return res.json(accounts)
+});
+
+app.get('/login', (req, res) => {
     console.log("A new client packet recieved.")
     return res.json(accounts)
 });
