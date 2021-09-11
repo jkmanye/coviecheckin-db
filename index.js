@@ -15,9 +15,6 @@ function reloadAccount() {
     accounts = JSON.parse(accRawdata);
 }
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
 app.get('/', (req, res) => {
     res.send("CovidCheckin Database Working!")
     console.log("A new client packet recieved.")
