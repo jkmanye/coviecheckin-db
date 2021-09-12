@@ -1,7 +1,7 @@
 {
     "name": "covidcheckin_db",
     "version": "0.0.1",
-    "description": "A sample Node.js app using Express 4",
+    "description": "CovidCheckin Application's Backend Database.",
     "engines": {
         "node": "14.x"
     },
