@@ -33,6 +33,8 @@ app.get('/login/:email/:password', (req, res) => {
     if (!user){
         return res.status(404).json({err: "Unknown user"});
     }
+    console.log(user.password);
+    console.log(req.params.password);
     if (user.password == req.params.password) {
         return res.json(user);
     } else return res.status(400).json({err: "Invalid password"});
