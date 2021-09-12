@@ -2,7 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT;
-app.use(express.json());
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 var accRawdata = fs.readFileSync('accounts.json');
 var accounts = JSON.parse(accRawdata);
@@ -29,22 +32,22 @@ app.get('/login', (req, res) => {
     return res.json(accounts)
 });
 
-app.post('/register', function(req, res) {
+app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log("A new client packet recieved.")
     console.log(req.body)
-    const email = req.body.email
+    const email = req.params.email
     console.log(email)
-    const password = req.body.password
+    const password = req.params.password
     console.log(password)
-    const name = req.body.name;
+    const name = req.params.name;
     console.log(name)
-    const telnum = req.body.telnum
+    const telnum = req.params.telnum
     console.log(telnum)
     const newUser = {
-        email: email,
-        pw: password,
-        name: name,
-        telnum: telnum
+        "email": email,
+        "pw": password,
+        "name": name,
+        "telnum": telnum
     }
     console.log(JSON.stringify(newUser))
     accounts.push(newUser)
