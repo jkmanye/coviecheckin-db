@@ -30,11 +30,13 @@ app.get('/status', (req, res) => {
 app.get('/login/:email/:password', (req, res) => {
     console.log("A new client packet recieved.")
     let user = accounts.filter(user => user.email == req.params.email)[0];
+    console.log(user);
+
+    console.log(user.password);
+    console.log(req.params.password);
     if (!user){
         return res.status(404).json({err: "Unknown user"});
     }
-    console.log(user.password);
-    console.log(req.params.password);
     if (user.password == req.params.password) {
         return res.json(user);
     } else return res.status(400).json({err: "Invalid password"});
