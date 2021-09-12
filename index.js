@@ -37,7 +37,7 @@ app.get('/login/:email/:password', (req, res) => {
     console.log(user.pw);
     console.log(typeof req.params.password);
     console.log(req.params.password);
-    if (user.password.toUpperCase() === req.params.password.toUpperCase()) {
+    if (_isEqual(user.password.toUpperCase(), req.params.password.toUpperCase())) {
         return res.json(user);
     } else return res.status(400).json({err: "Invalid password"});
 });
