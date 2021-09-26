@@ -16,6 +16,29 @@ function reloadAccount() {
     accounts = JSON.parse(accRawdata);
 }
 
+function encryptHash(s, n) {
+    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lower = 'abcdefghijklmnopqrstuvwxyz';
+  let answer = '';
+
+  for (let i = 0; i < s.length; i++) {
+    const str = s[i];
+    if (str == ' ') {
+      answer += ' ';
+      continue;
+    }
+
+    const upperOrLower = upper.includes(str) ? upper : lower;
+    let index = upperOrLower.indexOf(str) + n;
+    if (index >= upperOrLower.length) {
+      index -= upperOrLower.length;
+    }
+    answer += upperOrLower[index];
+  }
+
+  return answer;
+}
+
 app.get('/', (req, res) => {
     res.send("CovidCheckin Database Working!")
     console.log("A new client packet recieved.")
@@ -37,8 +60,8 @@ app.get('/login/:email/:password', (req, res) => {
     console.log(typeof user.pw);
     console.log(user.pw);
     console.log(typeof req.params.password);
-    console.log(req.params.password);
-    if (_isEqual(user.password.toUpperCase(), req.params.password.toUpperCase())) {
+    console.log(encryptHash(req.params.password, 5));
+    if (Object.is(user.pw, encryptHash(req.params.password, 5))) {
         return res.json(user);
     } else return res.status(400).json({err: "Invalid password"});
 });
@@ -56,7 +79,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log(telnum)
     const newUser = {
         "email": email,
-        "pw": password,
+        "pw": encryptHash(password, 5),
         "name": name,
         "telnum": telnum
     }
