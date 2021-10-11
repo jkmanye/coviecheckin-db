@@ -23,19 +23,21 @@ function encryptHash(s, n) {
 
     for (let i = 0; i < s.length; i++) {
         const str = s[i];
-    } if (isNaN(str)) {
-        continue;
-    } else if (str == ' ') {
-        answer += ' ';
-        continue;
-    }
 
-    const upperOrLower = upper.includes(str) ? upper : lower;
-    let index = upperOrLower.indexOf(str) + n;
-    if (index >= upperOrLower.length) {
-        index -= upperOrLower.length;
+        if (isNaN(str)) {
+            continue;
+        } else if (str == ' ') {
+            answer += ' ';
+            continue;
+        }
+
+        const upperOrLower = upper.includes(str) ? upper : lower;
+        let index = upperOrLower.indexOf(str) + n;
+        if (index >= upperOrLower.length) {
+            index -= upperOrLower.length;
+        }
+        answer += upperOrLower[index];
     }
-    answer += upperOrLower[index];
 
     return answer;
 }
