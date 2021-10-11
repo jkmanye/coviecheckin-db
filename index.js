@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var accRawdata = fs.readFileSync('accounts.json');
 var accounts = JSON.parse(accRawdata);
 
-var checkinRawdata = fs.readFileSync('accounts.json');
+var checkinRawdata = fs.readFileSync('codes.json');
 var checkinLists = JSON.parse(accRawdata);
 
 function reloadAccount() {
@@ -19,8 +19,13 @@ function reloadAccount() {
 }
 
 function reloadCheckinLists() {
-    checkinRawdata = fs.readFileSync('accounts.jsoncheckins.json');
+    checkinRawdata = fs.readFileSync('codes.json');
     checkinLists = JSON.parse(accRawdata);
+}
+
+function generateRandomString (num) {
+    let result1 = Math.random().toString(36).substring(0, num);
+    return result1;
 }
 
 function encryptHash(s, n) {
@@ -62,9 +67,14 @@ app.get('/', (req, res) => {
     console.log
 });
 
-app.get('/status', (req, res) => {
+app.get('/accStatus', (req, res) => {
     console.log("A new client packet recieved.")
     return res.json(accounts)
+});
+
+app.get('/codeStatus', (req, res) => {
+    console.log("A new client packet recieved.")
+    return res.json(checkinLists)
 });
 
 app.get('/login/:email/:password', (req, res) => {
@@ -114,36 +124,29 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     return res.status(201).json(accounts)
 });
 
-app.post('/loginCodeRequest/:id/:pw/', function (req, res) {
+app.post('/addCode/:place/', function (req, res) {
     console.log("A new client packet recieved.")
     console.log(req.body)
-    const email = req.params.email
-    console.log(email)
-    const password = req.params.password
-    console.log(password)
-    const name = req.params.name;
-    console.log(name)
-    const telnum = req.params.telnum
-    console.log(telnum)
+    const place = req.params.place
+    console.log(place)
+    const code = generateRandomString(8);
     const newUser = {
-        "email": email,
-        "pw": encryptHash(password, 5),
-        "name": name,
-        "telnum": telnum
+        "place": place,
+        "code": code
     }
     console.log(JSON.stringify(newUser))
     accounts.push(newUser)
-    fs.writeFile('./accounts.json', JSON.stringify(accounts), function (err) {
+    fs.writeFile('./codes.json', JSON.stringify(accounts), function (err) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
             return
         }
         console.log('File wrote.')
-        reloadAccount()
+        reloadCheckinLists()
        }
     )
-    return res.status(201).json(accounts)
+    return res.status(201).json(codes)
 });
 
 app.listen(PORT, () => {
