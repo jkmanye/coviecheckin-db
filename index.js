@@ -20,7 +20,7 @@ function reloadAccount() {
 
 function reloadCheckinLists() {
     checkinRawdata = fs.readFileSync('codes.json');
-    checkinLists = JSON.parse(accRawdata);
+    checkinLists = JSON.parse(checkinRawdata);
 }
 
 function generateRandomString (num) {
@@ -142,9 +142,10 @@ app.post('/addCode/:place/', function (req, res) {
             console.dir(err)
             return
         }
+
         console.log('File wrote.')
         reloadCheckinLists()
-        }
+    }
     )
     return res.status(201).json(checkinLists)
 });
