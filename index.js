@@ -11,7 +11,7 @@ var accRawdata = fs.readFileSync('accounts.json');
 var accounts = JSON.parse(accRawdata);
 
 var checkinRawdata = fs.readFileSync('codes.json');
-var checkinLists = JSON.parse(accRawdata);
+var checkinLists = JSON.parse(checkinRawdata);
 
 function reloadAccount() {
     accRawdata = fs.readFileSync('accounts.json');
@@ -32,7 +32,6 @@ function encryptHash(s, n) {
     const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lower = 'abcdefghijklmnopqrstuvwxyz';
     let answer = '';
-    var isNumber = new Boolean(false);
 
     for (let i = 0; i < s.length; i++) {
         const str = s[i];
