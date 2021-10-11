@@ -146,7 +146,7 @@ app.post('/addCode/:place/', function (req, res) {
         reloadCheckinLists()
        }
     )
-    return res.status(201).json(codes)
+    return res.status(201).json(checkinLists)
 });
 
 app.listen(PORT, () => {
