@@ -95,7 +95,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log(telnum)
     const newUser = {
         "email": email,
-        "pw": encryptash(password, 5),
+        "pw": encryptHash(password, 5),
         "name": name,
         "telnum": telnum
     }
