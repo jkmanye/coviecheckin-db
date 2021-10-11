@@ -136,7 +136,7 @@ app.post('/addCode/:place/', function (req, res) {
     }
     console.log(JSON.stringify(newUser))
     accounts.push(newUser)
-    fs.writeFile('./codes.json', JSON.stringify(accounts), function (err) {
+    fs.writeFile('./codes.json', JSON.stringify(checkinLists), function (err) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
@@ -144,7 +144,7 @@ app.post('/addCode/:place/', function (req, res) {
         }
         console.log('File wrote.')
         reloadCheckinLists()
-       }
+        }
     )
     return res.status(201).json(checkinLists)
 });
