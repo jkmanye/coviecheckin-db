@@ -134,7 +134,7 @@ app.post('/addCode/:place/', function (req, res) {
         "code": code
     }
     console.log(JSON.stringify(newUser))
-    accounts.push(newUser)
+    checkinLists.push(newUser)
     fs.writeFile('./codes.json', JSON.stringify(checkinLists), function (err) {
         if (err) {
             console.log('Error has occurred!')
