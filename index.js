@@ -120,7 +120,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
         reloadAccount()
        }
     )
-    return res.status(201).json(accounts)
+    return res.status(201).json(newUser)
 });
 
 app.post('/addCode/:place/', function (req, res) {
