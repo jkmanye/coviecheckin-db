@@ -185,7 +185,7 @@ app.post('/checkin/:place/:id/', function (req, res) {
     return res.status(200).json(checkinLog)
 });
 
-app.post('/checkin/:place/:id/', function (req, res) {
+app.post('/checkout/:place/:id/', function (req, res) {
     console.log("A new client packet recieved.")
     console.log(req.params)
     const place = req.params.place
@@ -213,9 +213,8 @@ app.post('/checkin/:place/:id/', function (req, res) {
 });
 
 app.listen(PORT, () => {
-    console.log("CovidCheckin DB is running in port 3000!")
+    console.log("CovidCheckin DB is running in port " + PORT)
     console.log(accounts)
     console.log(checkinLists)
-
-    return "hello";
+    console.log(checkLog)
 });
