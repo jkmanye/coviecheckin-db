@@ -4,7 +4,6 @@ const app = express();
 const PORT = process.env.PORT;
 
 var bodyParser = require('body-parser');
-const express = require('express');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -85,10 +84,6 @@ app.get('/codeStatus', (req, res) => {
     return res.json(checkinLists)
 });
 
-app.get('/codeStatus', (req, res) => {
-    console.log("A new client packet recieved.")
-    return res.json(checkinLists)
-});
 
 app.get('/login/:email/:password', (req, res) => {
     console.log("A new client packet recieved.")
