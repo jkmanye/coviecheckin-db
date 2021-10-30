@@ -153,8 +153,7 @@ app.post('/addCode/:place/', function (req, res) {
 
         console.log('File wrote.')
         reloadCheckinLists()
-    }
-    )
+    })
     return res.status(200).json(newPlace)
 });
 
@@ -172,7 +171,7 @@ app.post('/checkin/:place/:id/', function (req, res) {
     }
     console.log(JSON.stringify(checkinLog))
     checkLog.push(checkinLog)
-    fs.writeFile('./checkinlists.json', JSON.stringify(checkinLog)), function (err) {
+    fs.writeFile('./checkinlists.json', JSON.stringify(checkinLog), function (err) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
@@ -181,7 +180,7 @@ app.post('/checkin/:place/:id/', function (req, res) {
 
         console.log('File wrote.')
         reloadCheckinLog()
-    }
+    })
     return res.status(200).json(checkinLog)
 });
 
