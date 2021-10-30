@@ -216,5 +216,6 @@ app.listen(PORT, () => {
     console.log("CovidCheckin DB is running in port 3000!")
     console.log(accounts)
     console.log(checkinLists)
-    return res.status(200)
+
+    return "hello";
 });
