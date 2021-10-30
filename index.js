@@ -176,7 +176,7 @@ app.post('/checkin/:place/:id/', function (req, res) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
-            return res.status(500)
+            return
         }
 
         console.log('File wrote.')
