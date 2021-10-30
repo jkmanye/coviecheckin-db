@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 var bodyParser = require('body-parser');
+const express = require('express');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -13,6 +14,9 @@ var accounts = JSON.parse(accRawdata);
 var checkinRawdata = fs.readFileSync('codes.json');
 var checkinLists = JSON.parse(checkinRawdata);
 
+var checkLogRawdata = fs.readFileSync('checkinlists.json');
+var checkLog = JSON.parse(checkLogRawdata);
+
 function reloadAccount() {
     accRawdata = fs.readFileSync('accounts.json');
     accounts = JSON.parse(accRawdata);
@@ -21,6 +25,11 @@ function reloadAccount() {
 function reloadCheckinLists() {
     checkinRawdata = fs.readFileSync('codes.json');
     checkinLists = JSON.parse(checkinRawdata);
+}
+
+function reloadCheckinLog() {
+    checkLogRawdata = fs.readFileSync('checkinlists.json');
+    checkLog = JSON.parse(checkinRawdata);
 }
 
 function generateRandomString (num) {
@@ -76,6 +85,11 @@ app.get('/codeStatus', (req, res) => {
     return res.json(checkinLists)
 });
 
+app.get('/codeStatus', (req, res) => {
+    console.log("A new client packet recieved.")
+    return res.json(checkinLists)
+});
+
 app.get('/login/:email/:password', (req, res) => {
     console.log("A new client packet recieved.")
     let user = accounts.filter(user => user.email == req.params.email)[0];
@@ -87,7 +101,7 @@ app.get('/login/:email/:password', (req, res) => {
     console.log(typeof req.params.password);
     console.log(encryptHash(req.params.password, 5));
     if (Object.is(user.pw, encryptHash(req.params.password, 5))) {
-        return res.json(user);
+        return res.status(200).json(user);
     } else return res.status(400).json({err: "Invalid password"});
 });
 
@@ -114,13 +128,13 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
-            return
+            return res.status(500)
         }
         console.log('File wrote.')
         reloadAccount()
        }
     )
-    return res.status(201).json(newUser)
+    return res.status(200).json(newUser)
 });
 
 app.post('/addCode/:place/', function (req, res) {
@@ -129,28 +143,83 @@ app.post('/addCode/:place/', function (req, res) {
     const place = req.params.place
     console.log(place)
     const code = generateRandomString(8);
-    const newUser = {
+    const newPlace = {
         "place": place,
         "code": code
     }
-    console.log(JSON.stringify(newUser))
-    checkinLists.push(newUser)
+    console.log(JSON.stringify(newPlace))
+    checkinLists.push(newPlace)
     fs.writeFile('./codes.json', JSON.stringify(checkinLists), function (err) {
         if (err) {
             console.log('Error has occurred!')
             console.dir(err)
-            return
+            return res.status(500)
         }
 
         console.log('File wrote.')
         reloadCheckinLists()
     }
     )
-    return res.status(201).json(checkinLists)
+    return res.status(200).json(newPlace)
+});
+
+app.post('/checkin/:place/:id/', function (req, res) {
+    console.log("A new client packet recieved.")
+    console.log(req.params)
+    const place = req.params.place
+    const id = req.params.id
+    console.log(place)
+    console.log(id)
+    const checkinLog = {
+        "place": place,
+        "code": id,
+        "isCheckedOut" : false
+    }
+    console.log(JSON.stringify(checkinLog))
+    checkLog.push(checkinLog)
+    fs.writeFile('./checkinlists.json', JSON.stringify(checkinLog)), function (err) {
+        if (err) {
+            console.log('Error has occurred!')
+            console.dir(err)
+            return res.status(500)
+        }
+
+        console.log('File wrote.')
+        reloadCheckinLog()
+    }
+    return res.status(200).json(checkinLog)
+});
+
+app.post('/checkin/:place/:id/', function (req, res) {
+    console.log("A new client packet recieved.")
+    console.log(req.params)
+    const place = req.params.place
+    const id = req.params.id
+    console.log(place)
+    console.log(id)
+    const checkinLog = {
+        "place": place,
+        "code": id,
+        "isCheckedOut" : false
+    }
+    console.log(JSON.stringify(checkinLog))
+    checkLog.push(checkinLog)
+    fs.writeFile('./checkinlists.json', JSON.stringify(checkinLog)), function (err) {
+        if (err) {
+            console.log('Error has occurred!')
+            console.dir(err)
+            return res.status(500)
+        }
+
+        console.log('File wrote.')
+        reloadCheckinLog()
+    }
+    return res.status(200).json(checkinLog)
 });
 
 app.listen(PORT, () => {
     console.log("CovidCheckin DB is running in port 3000!")
     console.log(accounts)
     console.log(checkinLists)
+    return res.status(200)
 });
