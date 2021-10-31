@@ -193,7 +193,7 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
 
     const checkinLog = {
         "place": place,
-        "code": id,
+        "id": id,
         "checkinTime": time,
         "checkoutTime": "",
         "isCheckedOut": false
@@ -228,7 +228,8 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
         console.log(checkLog[i])
         console.log(checkLog[i].place)
         console.log(checkLog[i].id)
-        console.log(checkLog[i].checkintime)
+        console.log(checkLog[i].checkinTime)
+        console.log(checkLog[i].checkoutTime)
         console.log(checkLog[i].isCheckedOut)
         if (!isCheckedOut && Object.is(checkLog[i].id, id) && Object.is(checkLog[i].place, place) && Object.is(checkLog[i].checkintime, time)) {
             checkLog.remove(checkLog[i])
