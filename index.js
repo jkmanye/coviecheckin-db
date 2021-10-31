@@ -231,7 +231,7 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
         console.log(checkLog[i].checkinTime)
         console.log(checkLog[i].checkoutTime)
         console.log(checkLog[i].isCheckedOut)
-        if (!isCheckedOut && Object.is(checkLog[i].id, id) && Object.is(checkLog[i].place, place) && Object.is(checkLog[i].checkintime, time)) {
+        if (!checkLog[i].isCheckedOut && Object.is(checkLog[i].id, id) && Object.is(checkLog[i].place, place) && Object.is(checkLog[i].checkintime, time)) {
             checkLog.remove(checkLog[i])
             changingJson = checkLog[i]
         } else continue
