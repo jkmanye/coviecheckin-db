@@ -116,7 +116,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log(name)
     const telnum = req.params.telnum
     console.log(telnum)
-    filteredData = jsonQuery('account[email=' + email + ']', {
+    filteredData = jsonQuery('email=' + email + '', {
         data: accounts
     })
 
