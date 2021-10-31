@@ -73,7 +73,6 @@ app.get('/', (req, res) => {
     reloadAccount()
     reloadCheckinLists()
     console.log(accounts)
-    console.log
 });
 
 app.get('/accStatus', (req, res) => {
@@ -116,6 +115,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log(name)
     const telnum = req.params.telnum
     console.log(telnum);
+
     for (let i = 0; i < accounts.length; i += 1) {
         console.log(accounts[i])
         console.log(accounts[i].email)
@@ -151,25 +151,19 @@ app.post('/addCode/:place/', function (req, res) {
     const place = req.params.place
     console.log(place)
     var code = generateRandomString(8);
-    var isRightCode = false;
 
-    filteredPlaceData = jsonQuery('checkinLists[place=' + place + ']', {
-        data: data
-    })
+    for (let i = 0; i < checkinLists.length; i += 1) {
+        console.log(checkinLists[i])
+        console.log(checkinLists[i].place)
+        console.log(checkinLists[i].code)
+        if (Object.is(checkinLists[i].place, place)) {
+            return res.status(409).json({err: "Duplicate place"})
+        }
 
-    while (!isRightCode) {
-        filteredCodeData = jsonQuery('checkinLists[code=' + code + ']', {
-            data: checkinLists
-        })
-
-        if (filteredCodeData != null) {
+        if (Object.is(checkinLists[i].code, code)) {
             code = generateRandomString(8)
             continue
-        } else isRightCode = true;
-    }
-
-    if (filteredPlaceData != null) {
-        return res.status(409)
+        }
     }
 
     const newPlace = {
@@ -208,10 +202,10 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
         "place": place,
         "code": id,
         "time": time,
-        "isCheckedOut" : true
+        "isCheckedOut": true
     }
 
-    console.log(JSON.stringify(checkinLog))
+    console.log(checkinLog)
     
     checkLog.push(checkinLog)
     fs.writeFile('./checkinlists.json', JSON.stringify(checkLog), function (err) {
