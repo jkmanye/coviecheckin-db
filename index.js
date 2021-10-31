@@ -278,11 +278,11 @@ app.get('/query/:condition/:var1/:var2', (req, res) => {
         //usage: var1=time, var2=place
         for (let i = 0; i < checkLog.length; i += 1) {
             console.log(checkLog[i])
-            console.log(checkinLists[i].checkintime)
-            console.log(checkinLists[i].checkouttime)
-            console.log(checkinLists[i].id)
-            console.log(checkinLists[i].place)
-            if (checkinLists[i].checkintime.startsWith(var1) && Object.is(checkinLists[i].place, var2)) {
+            console.log(checkinLogs[i].checkintime)
+            console.log(checkinLogs[i].checkouttime)
+            console.log(checkinLogs[i].id)
+            console.log(checkinLogs[i].place)
+            if (checkLogs[i].checkintime.startsWith(var1) && Object.is(checkLogs[i].place, var2)) {
                 returnJson.push(checkinLists[i])
             }
         }
@@ -292,12 +292,12 @@ app.get('/query/:condition/:var1/:var2', (req, res) => {
         //usage: var1=id
         for (let i = 0; i < checkLog.length; i += 1) {
             console.log(checkLog[i])
-            console.log(checkinLists[i].checkinTime)
-            console.log(checkinLists[i].checkoutTime)
-            console.log(checkinLists[i].id)
-            console.log(checkinLists[i].place)
-            if (Object.is(checkinLists[i].id, var1)) {
-                returnJson.push(checkinLists[i])
+            console.log(checkLogs[i].checkinTime)
+            console.log(checkinLogs[i].checkoutTime)
+            console.log(checkinLogs[i].id)
+            console.log(checkinLogs[i].place)
+            if (Object.is(checkLogs[i].id, var1)) {
+                returnJson.push(checkinLogs[i])
             }
         }
 
