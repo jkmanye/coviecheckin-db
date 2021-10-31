@@ -115,17 +115,12 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     const name = req.params.name;
     console.log(name)
     const telnum = req.params.telnum
-    console.log(telnum)
-    filteredData = jsonQuery(email, {
-        data: accounts
-    })
-
-    console.log(filteredData)
-    console.log(filteredData.value)
-
-    // if (filteredData.value != []) {
-    //     return res.status(409)
-    // }
+    console.log(telnum);
+    for (let i = 0; i < accounts.length; i += 1) {
+        if (accounts[i].email = email) {
+            return res.status(409)
+        } else continue
+    }
 
     const newUser = {
         "email": email,
