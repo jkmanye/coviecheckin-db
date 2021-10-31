@@ -292,8 +292,8 @@ app.get('/query/:condition/:var1/:var2', (req, res) => {
         //usage: var1=id
         for (let i = 0; i < checkLog.length; i += 1) {
             console.log(checkLog[i])
-            console.log(checkinLists[i].checkintime)
-            console.log(checkinLists[i].checkouttime)
+            console.log(checkinLists[i].checkinTime)
+            console.log(checkinLists[i].checkoutTime)
             console.log(checkinLists[i].id)
             console.log(checkinLists[i].place)
             if (Object.is(checkinLists[i].id, var1)) {
