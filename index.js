@@ -6,7 +6,6 @@ const app = express();
 const PORT = 3000;
 
 var bodyParser = require('body-parser');
-const { time } = require('console');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -109,7 +108,6 @@ app.get('/login/:email/:password', (req, res) => {
 
 app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log("A new client packet recieved.")
-    console.log(req.body)
     const email = req.params.email
     console.log(email)
     const password = req.params.password
