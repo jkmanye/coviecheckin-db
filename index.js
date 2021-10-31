@@ -117,7 +117,7 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     const telnum = req.params.telnum
     console.log(telnum)
     filteredData = jsonQuery('account[email=' + email + ']', {
-        data: data
+        data: accounts
     })
 
     if (filteredData.length != null) {
@@ -159,7 +159,7 @@ app.post('/addCode/:place/', function (req, res) {
 
     while (!isRightCode) {
         filteredCodeData = jsonQuery('checkinLists[code=' + code + ']', {
-            data: data
+            data: checkinLists
         })
 
         if (filteredCodeData != null) {
