@@ -1,7 +1,6 @@
 const express = require('express');
 const fs = require('fs');
 
-const jsonQuery = require('json-query')
 const app = express();
 const PORT = process.env.PORT;
 
@@ -195,7 +194,8 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
     const checkinLog = {
         "place": place,
         "code": id,
-        "time": time,
+        "checkinTime": time,
+        "checkoutTime": "",
         "isCheckedOut": false
     }
 
@@ -215,12 +215,25 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
     return res.status(200).json(checkinLog)
 });
 
-app.post('/checkout/:place/:id/:time/', function (req, res) {
+app.post('/checkout/:place/:id/:time', function (req, res) {
     console.log("A new client packet recieved.")
     console.log(req.params)
     const place = req.params.place
     const id = req.params.id
     const time = req.params.time
+    var changingJson;
+
+    for (let i = 0; i < checkLog.length; i += 1) {
+        console.log(checkLog[i])
+        console.log(checkLog[i].place)
+        console.log(checkLog[i].id)
+        console.log(checkLog[i].checkintime)
+        console.log(checkLog[i].isCheckedOut)
+        if (!isCheckedOut && Object.is(checkLog[i].id, id) && Object.is(checkLog[i].place, place) && Object.is(checkLog[i].checkintime, time)) {
+            checkLog.remove(checkLog[i])
+            changingJson = checkLog[i]
+        } else continue
+    }
 
     console.log(place)
     console.log(id)
@@ -247,19 +260,41 @@ app.post('/checkout/:place/:id/:time/', function (req, res) {
     return res.status(200).json(checkinLog)
 });
 
-app.get('/query/:days/:place', (req, res) => {
+app.get('/query/:condition/:var1/:var2', (req, res) => {
     console.log("A new client packet recieved.")
-    let user = accounts.filter(user => user.email == req.params.email)[0];
-    if (!user){
-        return res.status(404).json({err: "Unknown user"});
-    }
-    console.log(typeof user.pw);
-    console.log(user.pw);
-    console.log(typeof req.params.password);
-    console.log(encryptHash(req.params.password, 5));
-    if (Object.is(user.pw, encryptHash(req.params.password, 5))) {
-        return res.status(200).json(user);
-    } else return res.status(400).json({err: "Invalid password"});
+    const var1 = req.params.var1;
+    const var2 = req.params.var2;
+    var returnJson = [];
+
+    if (Object.is(condition, "traceback")) {
+        //usage: var1=time, var2=place
+        for (let i = 0; i < checkLog.length; i += 1) {
+            console.log(checkLog[i])
+            console.log(checkinLists[i].checkintime)
+            console.log(checkinLists[i].checkouttime)
+            console.log(checkinLists[i].id)
+            console.log(checkinLists[i].place)
+            if (checkinLists[i].checkintime.startsWith(var1) && Object.is(checkinLists[i].place, var2)) {
+                returnJson.push(checkinLists[i])
+            }
+        }
+
+        return res.status(200).json(returnJson)
+    } else if (Object.is(condition, "checkoutquery")) {
+        //usage: var1=id
+        for (let i = 0; i < checkLog.length; i += 1) {
+            console.log(checkLog[i])
+            console.log(checkinLists[i].checkintime)
+            console.log(checkinLists[i].checkouttime)
+            console.log(checkinLists[i].id)
+            console.log(checkinLists[i].place)
+            if (Object.is(checkinLists[i].id, var1)) {
+                returnJson.push(checkinLists[i])
+            }
+        }
+
+        return res.status(200).json(returnJson)
+    } else return res.status(400)
 });
 
 app.listen(PORT, () => {
