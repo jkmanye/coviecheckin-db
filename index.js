@@ -30,7 +30,7 @@ function reloadCheckinLists() {
 
 function reloadCheckinLog() {
     checkLogRawdata = fs.readFileSync('checkinlists.json');
-    checkLog = JSON.parse(checkinRawdata);
+    checkLog = JSON.parse(checkLogRawdata);
 }
 
 function generateRandomString (num) {
