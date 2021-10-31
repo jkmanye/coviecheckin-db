@@ -239,6 +239,7 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
 
     console.log(place)
     console.log(id)
+    console.log(changingJson)
 
     const newLog = {
         "place": changingJson.place,
