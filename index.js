@@ -282,7 +282,7 @@ app.get('/query/:condition/:var1/:var2', (req, res) => {
             console.log(checkLog[i].checkoutTime)
             console.log(checkLog[i].id)
             console.log(checkLog[i].place)
-            if (checkLog[i].checkintime.startsWith(var1) && Object.is(checkLog[i].place, var2)) {
+            if (checkLog[i].checkinTime.startsWith(var1) && Object.is(checkLog[i].place, var2)) {
                 returnJson.push(checkLog[i])
             }
         }
