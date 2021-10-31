@@ -121,8 +121,9 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     })
 
     console.log(filteredData)
+    console.log(filteredData.value)
 
-    if (JSON.stringify(filteredData) != null) {
+    if (filteredData.value != null) {
         return res.status(409)
     }
 
