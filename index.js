@@ -45,7 +45,6 @@ function encryptHash(s, n) {
 
     for (let i = 0; i < s.length; i++) {
         const str = s[i];
-        console.log(str);
 
         if (!isNaN(str)) {
             answer += String(Number(str) + 5);
@@ -60,7 +59,6 @@ function encryptHash(s, n) {
         if (index >= upperOrLower.length) {
             index -= upperOrLower.length;
         }
-        console.log(upperOrLower[index]);
         answer += upperOrLower[index];
     }
 
@@ -96,10 +94,6 @@ app.get('/login/:email/:password', (req, res) => {
     if (!user){
         return res.status(404).json({err: "Unknown user"});
     }
-    console.log(typeof user.pw);
-    console.log(user.pw);
-    console.log(typeof req.params.password);
-    console.log(encryptHash(req.params.password, 5));
     if (Object.is(user.pw, encryptHash(req.params.password, 5))) {
         return res.status(200).json(user);
     } else return res.status(400).json({err: "Invalid password"});
@@ -202,7 +196,7 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
         "place": place,
         "code": id,
         "time": time,
-        "isCheckedOut": true
+        "isCheckedOut": false
     }
 
     console.log(checkinLog)
