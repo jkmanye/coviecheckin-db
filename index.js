@@ -245,9 +245,9 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
     console.log(changingJson)
 
     const newLog = {
-        "place": changingJson.place,
-        "code": changingJson.place,
-        "checkintime": changingJson.checkintime,
+        "place": place,
+        "id": id,
+        "checkintime": time,
         "checkouttime": curtime,
         "isCheckedOut" : true
     }
