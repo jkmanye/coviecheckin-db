@@ -117,8 +117,10 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     const telnum = req.params.telnum
     console.log(telnum);
     for (let i = 0; i < accounts.length; i += 1) {
-        if (accounts[i].email = email) {
-            return res.status(409)
+        console.log(accounts[i])
+        console.log(accounts[i].email)
+        if (Object.is(accounts[i].email, email)) {
+            return res.status(409).json({err: "Duplicate email"})
         } else continue
     }
 
