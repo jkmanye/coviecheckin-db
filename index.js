@@ -120,7 +120,9 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
         data: accounts
     })
 
-    if (filteredData.length != null) {
+    console.log(filteredData)
+
+    if (JSON.stringify(filteredData) != null) {
         return res.status(409)
     }
 
