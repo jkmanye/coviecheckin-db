@@ -269,6 +269,7 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
 
 app.get('/query/:condition/:var1/:var2', (req, res) => {
     console.log("A new client packet recieved.")
+    const condition = req.params.condition;
     const var1 = req.params.var1;
     const var2 = req.params.var2;
     var returnJson = [];
