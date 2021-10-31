@@ -123,9 +123,9 @@ app.post('/register/:email/:password/:name/:telnum', function(req, res) {
     console.log(filteredData)
     console.log(filteredData.value)
 
-    if (filteredData.value != []) {
-        return res.status(409)
-    }
+    // if (filteredData.value != []) {
+    //     return res.status(409)
+    // }
 
     const newUser = {
         "email": email,
