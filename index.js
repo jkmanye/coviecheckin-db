@@ -215,12 +215,13 @@ app.post('/checkin/:place/:id/:time/', function (req, res) {
     return res.status(200).json(checkinLog)
 });
 
-app.post('/checkout/:place/:id/:time', function (req, res) {
+app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
     console.log("A new client packet recieved.")
     console.log(req.params)
     const place = req.params.place
     const id = req.params.id
     const time = req.params.time
+    const curtime = req.params.curtime
     var changingJson;
 
     for (let i = 0; i < checkLog.length; i += 1) {
@@ -239,9 +240,10 @@ app.post('/checkout/:place/:id/:time', function (req, res) {
     console.log(id)
 
     const newLog = {
-        "place": place,
-        "code": id,
-        "time": time,
+        "place": changingJson.place,
+        "code": changingJson.place,
+        "checkintime": changingJson.checkintime,
+        "checkouttime": curtime,
         "isCheckedOut" : true
     }
 
