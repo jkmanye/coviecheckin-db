@@ -235,8 +235,8 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
         console.log(typeof checkLog[i].checkinTime)
         console.log(Object.is(checkLog[i].checkinTime, time))
         if (!checkLog[i].isCheckedOut && Object.is(checkLog[i].id, id) && Object.is(checkLog[i].place, place) && Object.is(checkLog[i].checkinTime, time)) {
-            checkLog.splice(i, 1)
             changingJson = checkLog[i]
+            checkLog.splice(i, 1)
         } else continue
     }
 
