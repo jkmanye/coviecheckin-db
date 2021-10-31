@@ -264,7 +264,7 @@ app.post('/checkout/:place/:id/:time/:curtime', function (req, res) {
         console.log('File wrote.')
         reloadCheckinLog()
     })
-    return res.status(200).json(checkinLog)
+    return res.status(200).json(newLog)
 });
 
 app.get('/query/:condition/:var1/:var2', (req, res) => {
