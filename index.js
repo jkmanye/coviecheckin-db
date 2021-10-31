@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const jsonQuery = require('json-query')
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
